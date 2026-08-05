@@ -1,0 +1,77 @@
+import java.util.Scanner;
+class BankAccount
+{
+double balance;
+BankAccount(double balance)
+{
+this.balance = balance;
+}
+void deposit(double amount)
+{
+if (amount <= 0)
+{
+throw new IllegalArgumentException("Invalid deposit amount!");
+}
+balance += amount;
+System.out.println("Amount deposited successfully.");
+}
+void withdraw(double amount)
+{
+if (amount <= 0)
+{
+throw new IllegalArgumentException("Invalid withdrawal amount!");
+}
+if (amount > balance) {
+throw new ArithmeticException("Insufficient balance!");
+}
+balance -= amount;
+System.out.println("Amount withdrawn successfully.");
+}
+void checkBalance()
+{
+System.out.println("Current Balance = " + balance);
+}
+}
+public class BankOperation
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+BankAccount account = new BankAccount(255000);
+try
+{
+System.out.println("1. Deposit");
+System.out.println("2. Withdraw");
+System.out.println("3. Check Balance");
+System.out.print("Enter your choice: ");
+int choice = sc.nextInt(); switch (choice)
+{
+case 1:
+System.out.print("Enter deposit amount: ");
+double depositAmount = sc.nextDouble();
+account.deposit(depositAmount);
+break;
+case 2:
+System.out.print("Enter withdrawal amount: ");
+double withdrawAmount = sc.nextDouble();
+account.withdraw(withdrawAmount);
+break;
+case 3:
+account.checkBalance();
+break;
+default:
+System.out.println("Invalid choice!");
+}
+}
+catch (IllegalArgumentException e)
+{
+System.out.println("Error: " + e.getMessage());
+}
+catch (ArithmeticException e) { System.out.println("Error: " + e.getMessage());
+}
+finally
+{
+System.out.println("Transaction completed.");
+}
+}
+}
